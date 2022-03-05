@@ -1,0 +1,2 @@
+export const set_Employee_Login_Customer_Token = 'employeelogincustomertoken'
+export const set_Employee_Login_Customer_remove_Token = 'employeelogincustomerremovetoken'
