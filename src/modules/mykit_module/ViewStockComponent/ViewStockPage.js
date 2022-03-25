@@ -16,7 +16,8 @@ function ViewStockPage(props) {
         kit_id: "Kit id",
         kit_total_weight: "Current Nt.wt",
         kit_total_pairs: "Current Pairs",
-        kit_total_pcs: "Current Pcs"
+        kit_total_pcs: "Current Pcs",
+        Total: "Total"
       }
       kidViewStockApi(
         props.loginData.data.emp_id,
@@ -32,6 +33,10 @@ function ViewStockPage(props) {
                 value: obj[property],
               });
           }
+          kitDetailss.push({
+            key: "Total",
+            value: obj.kit_total_pairs+obj.kit_total_pcs
+          })
           const kitproduct = res.data.kitproducts.map((response, index)=>{
             let kitqtykitweight = `${response.kitqty} \n ${response.kitweight} gms`
             let availqtyavailweight = `${response.availqty} \n ${response.availweight} gms`
@@ -61,7 +66,7 @@ function ViewStockPage(props) {
     <View style={{ flexDirection: "row", marginTop: 20, marginLeft: 'auto', marginRight: 20 }}>
       <CustomTernaryButton
         name={"View Detail"}
-        onPress={() => props.navigation.navigate("ViewStockDetailScreen", {kitId: props.route.params.kitId})}
+        onPress={() => props.navigation.navigate("ViewStockDetailScreen", {kitId: props.route.params.kitId, kitDetails: kitDetails })}
       />
     </View>
     <DefaultViewPage

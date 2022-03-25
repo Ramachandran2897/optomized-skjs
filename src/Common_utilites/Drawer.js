@@ -1,5 +1,7 @@
 import React, {memo} from "react";
+import {Dimensions} from 'react-native';
 import { createDrawerNavigator } from "@react-navigation/drawer";
+const deviceWidth = Math.round(Dimensions.get("window").width);
 // import { NavigationContainer } from "@react-navigation/native";
 // import { Button, View } from 'react-native';
 import { colors } from "../../skjs_config/colors";
@@ -34,6 +36,7 @@ const CustomDrawerNavigation = memo((params) => {
         headerTintColor: colors.ternary,
         drawerStyle: {
           backgroundColor: colors.primary,
+          width: deviceWidth/1.5
         }}}
     >
       {screenParams.map((params) => {

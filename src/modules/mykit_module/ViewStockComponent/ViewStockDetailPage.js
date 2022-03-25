@@ -6,6 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import kitStockDetailApi from "../../../Api/api_service/Kit_viewStock_detail_Api";
 import customAlert from "../../../../skjs_config/CustomComponents/CustomAlert";
 import { Alert_msg_Text } from "../../../../skjs_config/text";
+import DefaultViewPage from "../DefaultViewPage";
 
 function ViewStockDetailPage(props) {
   const [kitDetailList, setKitDetailList] = useState([]);
@@ -35,7 +36,17 @@ function ViewStockDetailPage(props) {
   const titlename = ["S.no", "Category", "Sku", "Net wgt"];
   return (
     <View style={{ flex: 1, marginTop: 30, marginHorizontal: 10 }}>
-      <CustomPrimaryTable titleArray={titlename} valueArray={kitDetailList} />
+      <DefaultViewPage
+        kitDetails={props.route.params.kitDetails}
+        kitLists={kitDetailList}
+        titlename={titlename}
+        routename={props.route.name}
+      />
+      {/* <CustomPrimaryTable
+        kitDetails={props.route.params.kitDetails}
+        titleArray={titlename}
+        valueArray={kitDetailList}
+      /> */}
     </View>
   );
 }

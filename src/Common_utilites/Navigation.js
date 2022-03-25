@@ -25,6 +25,7 @@ import setAddtoCart from "../Redux/AddtoCart/AddtoCartAction";
 import ViewStockDetailPage from "../modules/mykit_module/ViewStockComponent/ViewStockDetailPage";
 import ExistingCustomerPage from "../modules/NewSale_module/NewSaleComponent/ExistingCustomerPage";
 import NewCustomerPage from "../modules/NewSale_module/NewSaleComponent/NewCustomerPage";
+import FindShopingCostPage from "../modules/Shoping_cost_module/shopingCostComponent/findShopingCostPage";
 // import ModefiedHomeLandingPage from "../modules/main_module/mainComponent/HomeLandingPage";
 const Stack = createNativeStackNavigator();
 
@@ -140,6 +141,11 @@ const Navigation = (props) => {
             name="VerifyOtpScreen"
             component={VerifyOtpPage}
             options={{ title: "SKJS-sale" }}
+          />
+          <Stack.Screen
+            name="findshipingcost"
+            component={FindShopingCostPage}
+            options={{ title: "Find Shiping Cost" }}
           />
         </Stack.Navigator>
       ) : (

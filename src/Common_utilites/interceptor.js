@@ -12,7 +12,7 @@ axios.interceptors.request.use(
      }else{
       store.dispatch(LoaderAction(true));
      }
-    request.url = `${DevelopmentBaseUrl}${request.url}`;
+    request.url =request.url.includes("test.sequel247.com") ? request.url :`${DevelopmentBaseUrl}${request.url}`;
     console.log("request hello", request);
     return request;
   },

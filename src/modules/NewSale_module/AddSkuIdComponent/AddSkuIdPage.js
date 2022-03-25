@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   View,
@@ -34,15 +34,17 @@ import customAlert from "../../../../skjs_config/CustomComponents/CustomAlert";
 import { Alert_msg_Text } from "../../../../skjs_config/text";
 function AddSkuIdPage(props) {
   // const [userDetail, setUserDetail] = useState({});
-  const userDetail = props.employeeLoginCustomerData.data
+  const userDetail = props.employeeLoginCustomerData.data;
   const [checkApporvedOrNot, setCheckedApprovedOrNot] = useState(false);
-  console.log("", props.employeeLoginCustomerData)
+  console.log("", props.employeeLoginCustomerData);
+  const skuidRef = useRef(null);
   useFocusEffect(
     useCallback(() => {
       const customerObj = async () => {
         newSaleUserStatus(userDetail.userdetail[0].phone).then((res) => {
           if (res.status === 200 && res.data.success) {
-            custom_Toast({message: res.data.msg})
+            // custom_Toast({ message: res.data.msg });
+            skuidRef.current.focus();
           } else {
             customAlert({
               heading: Alert_msg_Text.alert_msg_HeadingThree,
@@ -73,8 +75,8 @@ function AddSkuIdPage(props) {
   };
 
   const onSubmit = (values, form) => {
-    console.log('form',form)
-    const callListApi = (alterSkuId)=>{
+    console.log("form", form);
+    const callListApi = (alterSkuId) => {
       kidListApi(props.loginData.data.emp_id).then((response) => {
         if (response.status === 200 && response.data.success) {
           newSaleAddToCart(
@@ -92,6 +94,7 @@ function AddSkuIdPage(props) {
               // porps.setCartCount(res.data.count_cart)
               store.dispatch(setAddtoCart(res.data.count_cart));
               form.resetForm();
+              skuidRef.current.focus();
             } else {
               customAlert({
                 heading: Alert_msg_Text.alert_msg_HeadingOne,
@@ -110,15 +113,15 @@ function AddSkuIdPage(props) {
           });
         }
       });
-    }
+    };
 
     let skjsid = values.skuid.split("sku/");
     if (Array.isArray(skjsid) && skjsid[1]) {
       form.setFieldValue("skuid", skjsid[1].toString());
-      setTimeout(()=>callListApi(skjsid[1].toString()), 500);
+      setTimeout(() => callListApi(skjsid[1].toString()), 500);
     } else {
       form.setFieldValue("skuid", skjsid.toString());
-      setTimeout(()=>callListApi(skjsid.toString()), 500);
+      setTimeout(() => callListApi(skjsid.toString()), 500);
     }
   };
 
@@ -164,6 +167,8 @@ function AddSkuIdPage(props) {
               <View style={SkuidStyles.skuidinputContainer}>
                 <View style={{ marginVertical: 10, minWidth: "80%" }}>
                   <CustomPrimaryTextinput
+                    ref={skuidRef}
+                    // autoFocus
                     placeholder={"Enter SKU ID"}
                     value={values.skuid}
                     returnKeyType="done"
@@ -176,10 +181,7 @@ function AddSkuIdPage(props) {
                   )}
                 </View>
                 <View style={SkuidStyles.marginBetweenView}>
-                  <CustomSecondaryButton
-                    name={"ADD"}
-                    onPress={handleSubmit}
-                  />
+                  <CustomSecondaryButton name={"ADD"} onPress={handleSubmit} />
                 </View>
               </View>
             </View>
